@@ -1,0 +1,197 @@
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{ mathrsfs }
+\usepackage[svgnames]{xcolor}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsthm}
+\usepackage[hmargin=25mm,vmargin=30mm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{arrows.meta}
+%\usepackage{tikz-cd}
+\usepackage{mathtools}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\usepackage{endnotes}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usetikzlibrary{shadings,shadows}
+\pagestyle{fancy}
+
+% Class Data variables (for headers)
+\def\classname{}
+\def\instructors{}
+\def\year{}
+\def\weeknum{}
+\def\daytitle{}
+
+% Use before starting document
+\newcommand{\classdata}[3]{
+    \def\classname{#1}
+    \def\instructors{#2}
+    \def\year{#3}
+}
+
+\newcounter{blockcounter}
+
+% Use to start new sheets
+\newcommand{\newsheet}[3]{
+    \pagebreak
+    \noindent
+    \begin{center}
+        \LARGE #1   
+    \end{center}
+    \vspace{4mm}
+    
+    \thispagestyle{plain}
+    \def\weeknum{#2}
+    \def\daytitle{#1}
+    \setcounter{page}{1}
+    \setcounter{section}{#3}
+    \setcounter{exercise-thm}{0}
+    \setcounter{blockcounter}{0}
+    \setcounter{lem}{0}
+}
+
+% Standard page headers
+\fancyhead[L]{\classname}
+\fancyhead[C]{}
+\fancyhead[R]{\daytitle}
+\fancyfoot[L,R]{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% headers for first pages of new sections
+\fancypagestyle{plain}{ 
+\fancyhf{}
+\fancyhead[L]{\classname}
+\fancyhead[C]{\textit{Mathcamp \year, Week \weeknum}}
+\fancyhead[R]{\instructors}
+\fancyfoot[L,R]{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+
+
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{thm}[lem]{Theorem}
+\newtheorem{fact}[lem]{Fact}
+\newtheorem{prop}[lem]{Proposition}
+\newtheorem{cor}[lem]{Corollary}
+\newtheorem{observation}[lem]{Observation}
+\newtheorem{goal}[lem]{Goal}
+
+\theoremstyle{definition}
+\newtheorem{defn}[lem]{Definition}
+\newtheorem{rem}[lem]{Remark}
+\newtheorem{example}[lem]{Example}
+\newtheorem{exmps}[lem]{Examples}
+\newtheorem{postulate}[lem]{Postulate}
+\newtheorem{exercise-thm}{Exercise}[section]
+\newtheorem{explor-thm}[exercise-thm]{Exploration}
+
+\def\showanswers{false}
+\newcommand{\answer}[1]
+{
+	\ifthenelse{\equal{\showanswers}{true}}{\textcolor{gray}{Solution: #1}}{}
+}
+
+\newenvironment{explor}[1][]{
+	\refstepcounter{blockcounter}
+	\vspace{5pt}
+	\tcolorbox[
+	noparskip,breakable,
+	colback=LightGreen,colframe=DarkGreen,%
+	colbacklower=LimeGreen!75!LightGreen,%
+	title=\textbf{Exploration \theblockcounter\ #1}]
+	}{
+	\endtcolorbox
+}
+
+\newenvironment{toprove}[2][]{
+	\refstepcounter{blockcounter}
+	\vspace{5pt}
+	\tcolorbox[
+	noparskip,breakable,
+	colback=LightBlue,colframe=DarkBlue,%
+	colbacklower=DarkBlue!75!LightBlue,%
+	title=\textbf{#2 \theblockcounter\ #1}]
+}{
+	\endtcolorbox
+}
+
+\newenvironment{reference}{
+	\refstepcounter{blockcounter}
+	\vspace{5pt}
+	\tcolorbox[
+	noparskip,breakable,
+	colback=LightGray,colframe=DarkGray,%
+	colbacklower=DarkGray!75!LightGray,%
+	title=\textbf{Reference}]
+}{
+	\endtcolorbox
+}
+
+
+
+\newcommand\nc{\newcommand}
+\newcommand{\mute}[1] {}
+\nc{\ZZ}{\mathbb Z}
+\nc{\FF}{\mathbb F}
+\nc{\RR}{\mathbb R}
+\nc{\QQ}{\mathbb Q}
+\nc{\NN}{\mathbb N}
+\nc{\HH}{\mathbb H}
+\nc{\CC}{\mathbb C}
+\nc{\OO}{\mathbb O}
+\DeclareMathOperator\Hi{\mathsf{Hi}}
+
+\def \N{\mathbb{N}}
+\def \Z{\mathbb{Z}}
+\def \R{\mathbb{R}}
+\def \C{\mathbb{C}}
+\def \Q{\mathbb{Q}}
+\def \Re{\mathrm{Re}}
+\def \Im{\mathrm{Im}}
+\def \one{\mathbf{1}}
+
+\def \vphi{\varphi}
+\def \eps{\varepsilon}
+\def \ssm{\smallsetminus}
+\def \u{\mathbf{u}}
+\def \v{\mathbf{v}}
+\def \w{\mathbf{w}}
+\def \p{\mathbf{p}}
+\def \q{\mathbf{q}}
+\def \l{\mathbf{l}}
+\def \x{\mathbf{x}}
+\def \zero{\mathbf{0}}
+\DeclareMathOperator\GL{GL}
+
+\def \LL{\mathcal{L}}
+
+\usepackage{relsize}
+\newcommand*{\LargerCdot}{\raisebox{-0.25ex}{\scalebox{1.4}{$\cdot$}}}
+
+
+
+\tikzset{->-/.style={decoration={
+			markings,
+			mark=at position .7 with {\arrow{>[scale=5,
+					length=2,
+					width=2]}}},postaction={decorate}}}
