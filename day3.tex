@@ -29,24 +29,7 @@ Given a {\color{magenta}basis $\{\b_1,\ldots,\b_n\}$}, the \textbf{\color{gray} 
 
 The {\color{magenta}fundamental parallelepiped of the basis} is the set
 	\[P=\{r_1\b_1+r_2\b_2+\cdots+r_n\b_n\mid r_1,r_2,\ldots,r_n\in [0,1)\}.\]
-
-The \textbf{\color{magenta}basis matrix $M$ of the basis $\{\b_1,\ldots,\b_n\}$} is the $n\times n$ matrix which has the basis vector $\b_i$ as the $i^{\text{th}}$ column:
-\[M=\begin{pmatrix}
-\mid & \mid & & \mid\\
-\b_1 & \b_2 & \cdots & \b_n\\
-\mid & \mid & & \mid	
-\end{pmatrix}=\begin{pmatrix}
-b_{11} & b_{21} & \cdots & b_{n1}\\
-b_{12} & b_{22} & \cdots & b_{n2}\\
-\vdots & \vdots & \ddots & \vdots\\
-b_{1n} & b_{2n} & \cdots & b_{nn}\\
-\end{pmatrix}.\]
 \end{defns}
-One reason we care about the basis matrix is the following:
-
-\begin{toprove}{Fact}\label{fact:det}
-	If $M$ is a basis matrix for a basis, and $P$ is the fundamental parallelepiped for the same basis, then $\text{Vol}(P)=|\det(M)|$. \color{DarkBlue}(See \url{https://textbooks.math.gatech.edu/ila/determinants-volumes.html} for a proof.)
-\end{toprove}
 
 \begin{comment}
 A basis matrix will always be invertible\footnote{A matrix $M$ is invertible if there exists a matrix $M^{-1}$ with the property that $MM^{-1}$ is the identity matrix ($1$s on the top-left-to-bottom-right diagonal, and $0$s everywhere else).} (Exploration~\ref{exp:basisinv}).
@@ -79,29 +62,21 @@ Let's work towards a proof of the following result. A subset $S$ of $\R^n$ is \e
 How does Minkowski's Theorem help us with the short vector question? The key insight is that we can turn a \emph{length} question (is there a vector with length at most $d$) into a \emph{volume} question (is there a vector in the ball of radius $d$). 
 
 \begin{explor}
-	Prove that the $n$-dimensional ball of radius $\sqrt{n}$ has volume greater than $2^n$. Use this, together with Fact~\ref{fact:det}, to prove Corollary~\ref{cor:lengthbound}.
+	Prove that the $n$-dimensional ball of radius $\sqrt{n}$ has volume greater than $2^n$. Use this to prove Corollary~\ref{cor:lengthbound}.
 \end{explor}
 
 \begin{toprove}[\color{white}(of Theorem~{\hypersetup{linkcolor=white}\ref{thm:minkowski}})]{Corollary}\label{cor:lengthbound}
-	Let $M$ be a basis matrix for a basis generating $\LL$. Then there exists a nonzero vector $\l\in\LL$ with
-	\[\|\l\|\leq \sqrt{n}|\det(M)|^{1/n}.\]
+	Let $P$ be a fundamental parallelepiped for $\LL$. Then there exists a nonzero vector $\l\in\LL$ with
+	\[\|\l\|\leq \sqrt{n}\text{Vol}(P)^{1/n}.\]
 \end{toprove}
 
 \begin{explor}
-	Consider the basis discussed at the beginning of this sheet. Does Corollary~\ref{cor:lengthbound} predict the existence of the short vector we found? How far off is the bound?
-	
-	\color{DarkGreen}(You may use a computer to compute determinants; for example, on Wolfram Alpha, ``\texttt{det([[1,2],[3,4]])}'' computes the determinant of $\begin{psmallmatrix}
-	1&2\\3&4
-	\end{psmallmatrix}$.)
+	Consider the basis discussed at the beginning of this sheet. The parallelepiped it generates has volume $3\sqrt{3}/10^6$.\footnote{If you want to know how to compute this, see Fact~\ref{fact:detvol} in the Optional Exploration section.} Does Corollary~\ref{cor:lengthbound} predict the existence of the short vector we found? How far off is the bound?
 \end{explor}
-
-\pagebreak
 
 \section*{Successive Minima and Minkowski's Second Theorem}
 
-Another way to state Minkowski's Theorem (in the special case where $S$ is a ball) is as follows. Let $\lambda_1$ denote the length of a shortest nonzero vector in $\LL$, and let $B$ denote an $n$-dimensional ball of radius $1$; then
-\[\lambda_1^n\text{Vol}(B)\leq 2^n\text{Vol}(P).\]
-It would be nice to have a lower bound for $\lambda_1$ too, but unfortunately this is impossible:
+Minkowski's Theorem is an upper bound: it guarantees the existence of a short vector in our lattice. A lower bound would be nice too (to tell us that the shortest vector can't be \emph{toooo} short), but unfortunately the volume of the fundamental parallelepiped is not enough to give us such a result:
 \begin{explor}
 	Find a basis in $\R^2$ such that the area of the fundamental parallelogram is $1$, but the length of the shortest vector is very very very very small.
 \end{explor}
@@ -110,25 +85,24 @@ The issue is that you can make one vector extremely small without changing the v
 \begin{defn}
 The \textbf{succesive minima} of a lattice, $\lambda_1\leq\cdots\leq\lambda_n$, are defined by the following property: $\lambda_i$ is the smallest number such that there exist at least $i$ \emph{linearly independent} vectors of length at most $\lambda_i$. 
 \end{defn}
-If you picture a ball with growing radius, then $\lambda_i$ represents the moment that the ball swallows up a vector pointing in an $i^\text{th}$ new direction.
+If you picture a ball with growing radius, then $\lambda_i$ represents the moment that the ball swallows up a vector pointing in an $i^\text{th}$ new direction. In particular, $\lambda_1$ is the length of the shortest nonzero vector in the lattice. So Minkowski's (first) theorem tells us that if $B$ is an $n$-dimensional ball of radius $1$, then
+\[\lambda_1^n\text{Vol}(B)\leq 2^n\text{Vol}(P).\]
+Minkowski's Second Theorem is similar, except that it uses all the successive minima.
 \begin{toprove}[(Minkowski's Second Theorem)]{Theorem}\label{thm:minkowski2}
 	Let $B$ be an $n$-dimensional ball of radius $1$, $P$ be the fundamental parallelepiped of a lattice $\LL$, and $\lambda_1,\ldots,\lambda_n$ the successive minima of $\LL$. Then
 	\[\frac{1}{n!}2^n\text{Vol}(P)\leq \lambda_1\cdots\lambda_n\text{Vol}(B)\leq 2^n\text{Vol}(P).\]
 \end{toprove}
 
+This gives us quite a bit of additional information about the ``shape'' of our lattice.
+
 \begin{explor}
-	Looking again at the basis from the beginning of this sheet, we found a very short vector $\x$. Prove that there are no other ``surprise'' short vectors in the lattice; specifically, any vector that is not a multiple of $\x$ must have length at least $0.275$.
+	Looking again at the basis $\{\b_1,\b_2,\b_3\}$ from the beginning of this sheet, we found a very short vector $\x$. Prove that there are no other ``surprise'' short vectors in the lattice. Specifically, any vector that is not a multiple of $\x$ must have length at least $0.275$.
 \end{explor}
 
-\pagebreak
 
 \section*{Optional Exploration: The Lower Bound}
 The upper bound in Theorem~\ref{thm:minkowski2} is rather deep and involved, but we can prove the lower bound! Let $\x_1,\ldots,\x_n$ be vectors in a lattice $\LL$ such that $\x_i$ has length $\lambda_i$.
 
-
-\newlength{\tempboxsep}
-\setlength{\tempboxsep}{\boxsep}
-\setlength{\boxsep}{5pt}
 
 \begin{explor}
 	We took $\x_1,\ldots,\x_n$ to be a set of linearly independent vectors that are as short as possible, so you might expect them to form a basis for $\LL$. This is true in $2$ dimensions: if $\LL$ is generated by a reduced basis $\{\u,\v\}$, then $\lambda_1=\|\u\|$ and $\lambda_2=\|\v\|$. 
@@ -148,6 +122,25 @@ The upper bound in Theorem~\ref{thm:minkowski2} is rather deep and involved, but
 	Show that $\lambda_1=\cdots=\lambda_5=1$, but any basis for $\LL$ must contain a vector of length at least $\sqrt{5}/2>1$. You can't get a basis just by taking the shortest linearly independent vectors! Low-dimensional intuition fails us here; high-dimensional lattices are \emph{weird}.
 \end{explor}
 
+\begin{toprove}{Fact}\label{fact:detvol}
+	The parallelepiped generated by $\v_1,\ldots,\v_n$,
+	\[\{r_1\v_1+r_2\v_2+\cdots+r_n\v_n\mid r_1,r_2,\ldots,r_n\in [0,1]\},\]
+	has volume equal to $|\det V|$, where
+	\[V=\begin{pmatrix}
+	\mid & \mid & & \mid\\
+	\v_1 & \v_2 & \cdots & \v_n\\
+	\mid & \mid & & \mid	
+	\end{pmatrix}=\begin{pmatrix}
+	v_{11} & v_{21} & \cdots & v_{n1}\\
+	v_{12} & v_{21} & \cdots & v_{n2}\\
+	\vdots & \vdots & \ddots & \vdots\\
+	v_{1n} & v_{2n} & \cdots & v_{nn}
+	\end{pmatrix}\]
+	has each vector $\v_i$ as a column.
+\end{toprove}
+\noindent
+See \url{https://textbooks.math.gatech.edu/ila/determinants-volumes.html} for a proof.
+
 \begin{explor}
 	If $\b_1,\ldots,\b_n$ is a basis for $\LL$, show that we can write 
 	\[\begin{pmatrix}
@@ -159,7 +152,7 @@ The upper bound in Theorem~\ref{thm:minkowski2} is rather deep and involved, but
 	\b_1 & \b_2 & \cdots & \b_n\\
 	\mid & \mid & & \mid	
 	\end{pmatrix}C\]
-	for some matrix $C$ with integer entries. Letting $P'$ denote the parallelepiped generated by $\x_1,\ldots,\x_n$, show that $\text{Vol}(P')\geq \text{Vol}(P)$.
+	for some matrix $C$ with integer entries. Letting $P'$ denote the parallelepiped generated by $\x_1,\ldots,\x_n$, show that $\text{Vol}(P')\geq \text{Vol}(P)$. 
 \end{explor}
 
 \begin{explor}
@@ -169,5 +162,3 @@ The upper bound in Theorem~\ref{thm:minkowski2} is rather deep and involved, but
 \begin{explor}
 	Consider the region $T'$ in $\R^n$ bounded by vertices at $\pm \x_i/\lambda_i$ for all $i$. Show that $T'$ is contained in $B$. How is the volume of $T'$ related to the volume of $T$?
 \end{explor}
-
-\setlength{\boxsep}{\tempboxsep}

@@ -18,6 +18,7 @@
 \usepackage{ifthen}
 \usepackage{endnotes}
 \usepackage{tcolorbox}
+\usepackage{csquotes}
 \tcbuselibrary{skins,breakable}
 \usetikzlibrary{shadings,shadows}
 \pagestyle{fancy}
@@ -97,7 +98,6 @@
 \newtheorem{goal}[lem]{Goal}
 
 \theoremstyle{definition}
-\newtheorem{defn}[lem]{Definition}
 \newtheorem{rem}[lem]{Remark}
 \newtheorem{example}[lem]{Example}
 \newtheorem{exmps}[lem]{Examples}
@@ -111,40 +111,58 @@
 	\ifthenelse{\equal{\showanswers}{true}}{\textcolor{gray}{Solution: #1}}{}
 }
 
+
+\newlength{\boxsep}
+\setlength{\boxsep}{10pt}
+
 \newenvironment{explor}[1][]{
 	\refstepcounter{blockcounter}
-	\vspace{5pt}
+	\vspace{\boxsep}
 	\tcolorbox[
-	noparskip,breakable,
+	noparskip,
 	colback=LightGreen,colframe=DarkGreen,%
 	colbacklower=LimeGreen!75!LightGreen,%
 	title=\textbf{Exploration \theblockcounter\ #1}]
 	}{
 	\endtcolorbox
+	\vspace{\boxsep}
 }
 
 \newenvironment{toprove}[2][]{
 	\refstepcounter{blockcounter}
-	\vspace{5pt}
+	\vspace{\boxsep}
 	\tcolorbox[
-	noparskip,breakable,
+	noparskip,
 	colback=LightBlue,colframe=DarkBlue,%
 	colbacklower=DarkBlue!75!LightBlue,%
 	title=\textbf{#2 \theblockcounter\ #1}]
 }{
 	\endtcolorbox
+	\vspace{\boxsep}
 }
 
-\newenvironment{reference}{
-	\refstepcounter{blockcounter}
-	\vspace{5pt}
+\newenvironment{defns}{
+	\vspace{\boxsep}
 	\tcolorbox[
-	noparskip,breakable,
+	noparskip,
 	colback=LightGray,colframe=DarkGray,%
 	colbacklower=DarkGray!75!LightGray,%
-	title=\textbf{Reference}]
+	title=\textbf{Definitions}]
 }{
 	\endtcolorbox
+	\vspace{\boxsep}
+}
+
+\newenvironment{defn}{
+	\vspace{\boxsep}
+	\tcolorbox[
+	noparskip,
+	colback=LightGray,colframe=DarkGray,%
+	colbacklower=DarkGray!75!LightGray,%
+	title=\textbf{Definition}]
+}{
+	\endtcolorbox
+	\vspace{\boxsep}
 }
 
 
@@ -180,6 +198,7 @@
 \def \q{\mathbf{q}}
 \def \l{\mathbf{l}}
 \def \x{\mathbf{x}}
+\def \b{\mathbf{b}}
 \def \zero{\mathbf{0}}
 \DeclareMathOperator\GL{GL}
 
