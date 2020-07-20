@@ -37,7 +37,7 @@
     \def\year{#3}
 }
 
-\newcounter{blockcounter}
+\newcounter{blockcounter}[section]
 
 % Use to start new sheets
 \newcommand{\newsheet}[3]{
@@ -52,9 +52,7 @@
     \def\weeknum{#2}
     \def\daytitle{#1}
     \setcounter{page}{1}
-    \setcounter{section}{#3}
-    \setcounter{exercise-thm}{0}
-    \setcounter{blockcounter}{0}
+    \stepcounter{section}
     \setcounter{lem}{0}
 }
 
